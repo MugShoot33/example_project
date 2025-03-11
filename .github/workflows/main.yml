@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]  # 'main' dalına push geldiğinde çalışsın
+  pull_request:
+    branches: [ "main" ]  # 'main' dalına pull request açıldığında da çalışsın
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # (Eğer Node.js projesi değilse bu adımları atlayabilirsin)
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Run tests
+        run: npm test
